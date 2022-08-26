@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent">-->
+<!--    &lt;!&ndash;    android:orientation="horizontal">&ndash;&gt;-->
+
+<!--    &lt;!&ndash;    <Button&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:id="@+id/button_1"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_width="wrap_content"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_height="wrap_content"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_gravity="top"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:text="button1" />&ndash;&gt;-->
+
+<!--    &lt;!&ndash;    <Button&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:id="@+id/button_2"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_width="wrap_content"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_height="wrap_content"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_gravity="center_vertical"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:text="button1" />&ndash;&gt;-->
+
+<!--    &lt;!&ndash;    <Button&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:id="@+id/button_3"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_width="wrap_content"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_height="wrap_content"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_gravity="bottom"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:text="button1" />&ndash;&gt;-->
+
+<!--    &lt;!&ndash;    <EditText&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:id="@+id/input_message"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_width="0dp"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_height="wrap_content"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_weight="1"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:hint="Type something" />&ndash;&gt;-->
+
+<!--    &lt;!&ndash;    <Button&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:id="@+id/send"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_width="wrap_content"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_height="wrap_content"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:text="Send" />&ndash;&gt;-->
+
+<!--    &lt;!&ndash;    <Button&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:id="@+id/button1"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_width="wrap_content"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_height="wrap_content"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_alignParentLeft="true"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_alignParentTop="true"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:text="button 1" />&ndash;&gt;-->
+
+<!--    &lt;!&ndash;    <Button&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:id="@+id/button2"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_width="wrap_content"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_height="wrap_content"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_alignParentTop="true"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_alignParentRight="true"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:text="button 2" />&ndash;&gt;-->
+
+
+<!--    &lt;!&ndash;    <Button&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:id="@+id/button3"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_width="wrap_content"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_height="wrap_content"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_centerInParent="true"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:text="button 3" />&ndash;&gt;-->
+
+
+<!--    &lt;!&ndash;    <Button&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:id="@+id/button4"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_width="wrap_content"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_height="wrap_content"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_alignParentLeft="true"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_alignParentBottom="true"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:text="button 4" />&ndash;&gt;-->
+
+
+<!--    &lt;!&ndash;    <Button&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:id="@+id/button5"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_width="wrap_content"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_height="wrap_content"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_alignParentRight="true"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_alignParentBottom="true"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:text="button 5" />&ndash;&gt;-->
+
+<!--    &lt;!&ndash;    <Button&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:id="@+id/button3"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_width="wrap_content"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_height="wrap_content"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_centerInParent="true"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:text="button 3" />&ndash;&gt;-->
+
+<!--    &lt;!&ndash;    <Button&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:id="@+id/button1"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_width="wrap_content"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_height="wrap_content"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_above="@+id/button3"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_toLeftOf="@id/button3"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:text="button 1" />&ndash;&gt;-->
+
+<!--    &lt;!&ndash;    <Button&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:id="@+id/button2"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_width="wrap_content"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_height="wrap_content"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_above="@+id/button3"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_toRightOf="@id/button3"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:text="button 2" />&ndash;&gt;-->
+
+
+<!--    &lt;!&ndash;    <Button&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:id="@+id/button4"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_width="wrap_content"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_height="wrap_content"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_below="@+id/button3"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_toLeftOf="@id/button3"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:text="button 4" />&ndash;&gt;-->
+
+
+<!--    &lt;!&ndash;    <Button&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:id="@+id/button5"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_width="wrap_content"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_height="wrap_content"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_below="@+id/button3"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_toRightOf="@id/button3"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:text="button 5" />&ndash;&gt;-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/text_view"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="left"-->
+<!--        android:text="this is textView" />-->
+
+<!--    <ImageView-->
+<!--        android:id="@+id/image_view"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="right"-->
+<!--        android:src="@mipmap/ic_launcher" />-->
+<!--</FrameLayout>-->
+
+<!--百分比布局-->
+<!--<androidx.percentlayout.widget.PercentFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto">-->
+
+<!--    <Button-->
+<!--        android:id="@+id/button1"-->
+<!--        android:text="Button 1"-->
+
+<!--        android:layout_gravity="left|top"-->
+<!--        app:layout_widthPercent="50%"-->
+<!--        app:layout_heightPercent="50%"-->
+<!--        />-->
+<!--    <Button-->
+<!--        android:id="@+id/button2"-->
+<!--        android:text="Button 2"-->
+
+<!--        android:layout_gravity="right|top"-->
+<!--        app:layout_widthPercent="50%"-->
+<!--        app:layout_heightPercent="50%"-->
+<!--        />-->
+<!--    <Button-->
+<!--        android:id="@+id/button3"-->
+<!--        android:text="Button 3"-->
+
+<!--        android:layout_gravity="left|bottom"-->
+<!--        app:layout_widthPercent="50%"-->
+<!--        app:layout_heightPercent="50%"-->
+<!--        />-->
+<!--    <Button-->
+<!--        android:id="@+id/button4"-->
+<!--        android:text="Button 4"-->
+
+<!--        android:layout_gravity="right|bottom"-->
+<!--        app:layout_widthPercent="50%"-->
+<!--        app:layout_heightPercent="50%"-->
+<!--        />-->
+
+
+<!--</androidx.percentlayout.widget.PercentFrameLayout>-->
+
+<!--相对布局-->
+<androidx.percentlayout.widget.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button1"
+        android:layout_centerInParent="true"
+        app:layout_widthPercent="50%"
+        app:layout_heightPercent="50%"
+        android:text="button1"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="button2"/>
+
+</androidx.percentlayout.widget.PercentRelativeLayout>
