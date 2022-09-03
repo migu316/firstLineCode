@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Send Request" />
-
+<!--使支持滚动的形式查看屏幕外的那部分内容-->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
