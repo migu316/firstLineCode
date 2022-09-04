@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         DataOutputStream out = new DataOutputStream(connection.getOutputStream());
         out.writeBytes("username=admin&password=123456");
      */
-    TextView responseText;
+    TextView  responseText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
