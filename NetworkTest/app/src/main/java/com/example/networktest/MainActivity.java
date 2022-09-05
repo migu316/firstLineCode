@@ -3,13 +3,18 @@ package com.example.networktest;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserFactory;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -22,7 +27,7 @@ import okhttp3.Response;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
 
-    /*
+    /**
         使用HttpUrlConnection
         首先new一个URL对象，并传入网络地址    URL url = new URL("https://www.baidu.com")
                         ↓
@@ -61,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    /*  使用OkHttp
+    /**  使用OkHttp
         在使用OkHttp之前，需要在项目中添加OkHttp库的依赖
             implementation('com.squareup.okhttp3:okhttp:3.4.1')
         首先创建一个OkHttpClient的实例
@@ -93,8 +98,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         接下来的操作就和get请求一样了，调用execute方法来发送请求并获取服务器返回的数据即可
 
      */
-
-
     private void sendRequestWithOkHttp() {
         new Thread(new Runnable() {
             @Override
@@ -108,16 +111,66 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     OkHttpClient client = new OkHttpClient();
                     Request request = new Request.Builder()
-                            .url("https://www.baidu.com")
+//                            .url("https://www.baidu.com")
+                            // 指定访问的服务器地址是电脑本机
+                            .url("http://10.0.2.2/get_data.xml")
                             .build();
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();
-                    showResponse(responseData);
+//                    showResponse(responseData);
+                    parseXMLWithPull(responseData);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         }).start();
+    }
+
+    private void parseXMLWithPull(String responseData) {
+        try {
+            XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+            XmlPullParser xmlPullParser = factory.newPullParser();
+            // 调用XmlPullParser的setinput方法将服务器返回的XML数据设置进去就可以开始解析了
+            xmlPullParser.setInput(new StringReader(responseData));
+            // 获取当前的解析事件
+            int eventType = xmlPullParser.getEventType();
+            String id = "";
+            String name = "";
+            String version = "";
+            while (eventType != XmlPullParser.END_DOCUMENT) {
+                // 获取当前节点的名字
+                String nodeName = xmlPullParser.getName();
+                switch (eventType) {
+                    // 开始解析某个节点
+                    case XmlPullParser.START_TAG: {
+                        if ("id".equals(nodeName)) {
+                            // 调用nextText()方法获取节点内具体的内容
+                            id = xmlPullParser.nextText();
+                        } else if ("name".equals(nodeName)) {
+                            name = xmlPullParser.nextText();
+                        } else if ("version".equals(nodeName)) {
+                            version = xmlPullParser.nextText();
+                        }
+                        break;
+                    }
+                        // 完成解析某个节点
+                        //  每当解析完成一个app节点后就将获取到的内容打印出来
+                    case XmlPullParser.END_TAG: {
+                        if ("app".equals(nodeName)) {
+                            Log.d("MainActivity", "id is " + id);
+                            Log.d("MainActivity", "name is " + name);
+                            Log.d("MainActivity", "version is " + version);
+                        }
+                    }
+                    break;
+                    default:
+                        break;
+                }
+                eventType = xmlPullParser.next();
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void sendRequestWithHttpUrlConnection() {
