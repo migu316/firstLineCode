@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * .url("https://www.baidu.com")
      * .post(requestBody)
      * .build();
-     * 接下来的操作就和get请求一样了，调用execute方法来发送请求并获取服务器返回的数据即可
+     * 接下来的操作就和get请求一样了，调用execute方法来发送请求并获取服务器返回的数据即可。
      */
     private void sendRequestWithOkHttp() {
         new Thread(new Runnable() {
