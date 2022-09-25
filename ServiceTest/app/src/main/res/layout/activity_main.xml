@@ -16,4 +16,15 @@
         android:layout_height="wrap_content"
         android:text="Stop service" />
 
+    <Button
+        android:id="@+id/bind_service"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Bind service" />
+
+    <Button
+        android:id="@+id/unBind_service"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="unBind service" />
 </LinearLayout>
