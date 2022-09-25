@@ -8,11 +8,35 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 /**
+ * 服务的生命周期：
+ * 1.调用startService()
+ *      我们用到的onCreate(),onStartCommand(),onBind(),onDestroy()等方法都是在服务的生存周期内可能回调的方法
+ *      在Context的任何位置调用startService()方法，服务便会启动。同时回调onStartCommand()
+ *      如果没有创建，那么就会先调用onCreate()
+ *      直到stopService()或stopSelf()方法被调用
+ *      startService()→onCreate()→onStartCommand()→stopService()/stopSelf()→onDestroy()
+ *      **注意**
+ *      虽然每调用一次startService()方法，onStartCommand()就会执行一次，但是实际上每个服务就只会存在一次，
+ *      所以无论你调用了多少次，只需要调用一次stopService()/stopSelf()就可以把服务停止了
+ * 2.调用bindService()
+ *      我们可以使用Context中的bindService()来获取一个服务的持久连接，这时就会回调服务中的onBind()方法。
+ *      同时，如果服务没有创建，那么onCreate()方法就会再onBind()方法之前调用
+ *      之后，调用方即可获取到onBind()方法中返回的IBinder对象的实例，此时就可以和服务进行通信了
+ *      bindService()→onCreate()→(调用方)onServiceConnect()→unbindService()→onDestroy()
+ * 3.关于销毁活动
+ *      startService()→stopService()→onDestroy()
+ *      bindService()→unbindService()→onDestroy()
+ *      如果既调用startService()，又调用了bindService()
+ *      startService()→bindService():running
+ *      bindService()→startService():running
+ *      这种情况下如何销毁呢？
+ *      bindService()→startService()→unbindService()→stopService()
+ *      根据Android的机制，一个服务只要被启动或者被绑定之后，就会一直处于运行状态，必须要让以上两种条件同时不满足，服务
+ *      才会被销毁。所以需要同时调用stopService()和unbindService(),无先后顺序
  * @author admin
  */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
