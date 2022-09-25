@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -16,13 +17,14 @@ import android.widget.Button;
  */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    MyService.DownloadBinder downloadBinder;
     /**
      * 将会在服务和活动绑定的时候进行调用
      */
     private final ServiceConnection connection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-            MyService.DownloadBinder downloadBinder = (MyService.DownloadBinder) iBinder;
+            downloadBinder = (MyService.DownloadBinder) iBinder;
             downloadBinder.startDownload();
             downloadBinder.getProgress();
         }
