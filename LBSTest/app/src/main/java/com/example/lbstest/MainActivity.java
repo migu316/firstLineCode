@@ -6,6 +6,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -16,6 +17,14 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.baidu.mapapi.SDKInitializer;
+import com.baidu.mapapi.common.BaiduMapSDKException;
+import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.MapStatusUpdate;
+import com.baidu.mapapi.map.MapStatusUpdateFactory;
+import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.map.MyLocationData;
+import com.baidu.mapapi.model.LatLng;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,11 +35,19 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView positionText;
 
+    private MapView mapView;
+
+    private BaiduMap baiduMap;
+
+    private boolean isFirstLocate = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // 同意百度的隐私设置
-        LocationClient.setAgreePrivacy(true);
+//        LocationClient.setAgreePrivacy(true);
+//        SDKInitializer.setAgreePrivacy(getApplicationContext(), true);
+        setAgreePrivacy(getApplicationContext(), true);
         try {
             //位置客户端对象：需要一个context参数 通过getApplicationContext来获取上下文对象
             mLocationClient = new LocationClient(getApplicationContext());
@@ -39,7 +56,14 @@ public class MainActivity extends AppCompatActivity {
         }
         // 通过位置客户端对象来注册一个定位监听器：当获取到位置信息的时候，就会回调这个定位监听器
         mLocationClient.registerLocationListener(new MyLocationListener());
+        // 进行初始化操作，需要在setContentView()方法之前调用
+        SDKInitializer.initialize(getApplicationContext());
         setContentView(R.layout.activity_main);
+        mapView = findViewById(R.id.bmapView);
+        // 获取BaiduMap实例
+        baiduMap = mapView.getMap();
+        // 启用显示当前位置光标显示的功能
+        baiduMap.setMyLocationEnabled(true);
         positionText = findViewById(R.id.position_text_view);
 
         // 通过一个List集合将3个权限一次性申请，首先判断是否以及拥有该权限，若没有，将会添加到List集合中
@@ -64,6 +88,46 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void navigateTo(BDLocation location) {
+        if (isFirstLocate) {
+            // 存放经纬度
+            LatLng ll = new LatLng(location.getLatitude(), location.getLongitude());
+            // 返回一个包含了经纬度的MapStatusUpdate对象
+            MapStatusUpdate update = MapStatusUpdateFactory.newLatLng(ll);
+            // 以动画方式更新地图状态，默认动画耗时 300 ms
+            baiduMap.animateMapStatus(update);
+            // 设置地图缩放级别，值越大，地图显示的信息就越精细
+            update = MapStatusUpdateFactory.zoomTo(16f);
+            baiduMap.animateMapStatus(update);
+            // 防止多次调用animateMapStatus()方法
+            isFirstLocate = false;
+        }
+        // 写在if语句的外面，因为让地图移动到当前所在位置只需要在第一次定位的时候使用，而当前位置的光标是需要一直修改的
+        // 创建一个封装设备当前所在位置的类
+        MyLocationData.Builder locationBuilder = new MyLocationData.Builder();
+        // 对经纬度进行封装
+        locationBuilder.latitude(location.getLatitude());
+        locationBuilder.longitude(location.getLongitude());
+        // 生成MyLocationData对象
+        MyLocationData locationData = locationBuilder.build();
+        // 调用setMyLocationData()方法，传入locationData数据即可在地图上显示当前所在位置的光标
+        baiduMap.setMyLocationData(locationData);
+    }
+
+    /**
+     * 设置隐私模式，默认false
+     * 如果设置true,一定要保证在调用 SDKInitializer.initialize(this); 之前设置
+     *
+     * @param context  必须是Application Context
+     * @param isEnable ture-同意隐私政策； false-不同意隐私政策；
+     */
+    public static void setAgreePrivacy(Context context, boolean isEnable) {
+        // 是否同意隐私政策，默认为false
+        LocationClient.setAgreePrivacy(true);
+        SDKInitializer.setAgreePrivacy(context, isEnable);
+    }
+
+
     private void requestLocation() {
         // 启用自动更新位置
         initLocation();
@@ -76,9 +140,25 @@ public class MainActivity extends AppCompatActivity {
      */
     private void initLocation() {
         LocationClientOption option = new LocationClientOption();
-        option.setScanSpan(5000);
-        option.setLocationMode(LocationClientOption.LocationMode.Device_Sensors);
+        option.setScanSpan(1000);
+        // 获取当前位置详细的地址信息
+        option.setIsNeedAddress(true);
+        // 获取最新的地址信息
+        option.setNeedNewVersionRgc(true);
+        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
         mLocationClient.setLocOption(option);
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        mapView.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mapView.onPause();
     }
 
     /**
@@ -88,6 +168,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         mLocationClient.stop();
+        mapView.onDestroy();
+        baiduMap.setMyLocationEnabled(false);
     }
 
     /**
@@ -131,6 +213,11 @@ public class MainActivity extends AppCompatActivity {
                     StringBuilder currentPosition = new StringBuilder();
                     currentPosition.append("纬度：").append(location.getLatitude()).append("\n");
                     currentPosition.append("经线：").append(location.getLongitude()).append("\n");
+                    currentPosition.append("国家：").append(location.getCountry()).append("\n");
+                    currentPosition.append("省：").append(location.getProvince()).append("\n");
+                    currentPosition.append("市：").append(location.getCity()).append("\n");
+                    currentPosition.append("区：").append(location.getDistrict()).append("\n");
+                    currentPosition.append("街道：").append(location.getStreet()).append("\n");
                     currentPosition.append("定位方式：");
                     if (location.getLocType() == BDLocation.TypeGpsLocation) {
                         currentPosition.append("GPS");
@@ -140,6 +227,11 @@ public class MainActivity extends AppCompatActivity {
                     positionText.setText(currentPosition);
                 }
             });
+            // 判断定位方式
+            if (location.getLocType() == BDLocation.TypeGpsLocation ||
+                    location.getLocType() == BDLocation.TypeNetWorkLocation) {
+                navigateTo(location);
+            }
         }
     }
 
